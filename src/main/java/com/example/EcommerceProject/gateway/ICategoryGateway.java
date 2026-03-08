@@ -6,7 +6,7 @@ import com.example.EcommerceProject.dto.ProductCategoryDTO;
 import java.io.IOException;
 import java.util.List;
 
-public interface ICategoryGateway {
+public interface  ICategoryGateway {
     List<CategoryDTO> getAllCategories() throws IOException;
     List<ProductCategoryDTO> getProductsByCategory(Long categoryId) throws IOException;
 }
