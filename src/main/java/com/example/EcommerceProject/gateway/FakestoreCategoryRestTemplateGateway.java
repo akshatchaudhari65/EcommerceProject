@@ -1,20 +1,37 @@
 package com.example.EcommerceProject.gateway;
 
 import com.example.EcommerceProject.dto.CategoryDTO;
+import com.example.EcommerceProject.dto.FakestoreCategoryResponseDTO;
 import com.example.EcommerceProject.dto.ProductCategoryDTO;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
+
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
-@Component
-@Qualifier("fakeStoreCategoryRestTemplateGateway")
+@Component("fakeStoreCategoryRestTemplateGateway")
 public class FakestoreCategoryRestTemplateGateway implements ICategoryGateway{
+    private final RestTemplate restTemplate;
+
+    public FakestoreCategoryRestTemplateGateway(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+
     @Override
     public List<CategoryDTO> getAllCategories() throws IOException {
-        return List.of();
+        String url = "https://api.escuelajs.co/api/v1/categories";
+        ResponseEntity<FakestoreCategoryResponseDTO[]> response = restTemplate.getForEntity(url, FakestoreCategoryResponseDTO[].class);
+        if(response.getBody() == null){
+            throw new IOException("Failed to fetch categories");
+        }
+        return Arrays.stream(response.getBody())
+                .map(fakeCategory -> new CategoryDTO(fakeCategory.getName()))
+                .toList();
     }
 
     @Override
