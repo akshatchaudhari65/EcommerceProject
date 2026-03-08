@@ -3,6 +3,7 @@ package com.example.EcommerceProject.controllers;
 import com.example.EcommerceProject.dto.CategoryDTO;
 import com.example.EcommerceProject.dto.ProductCategoryDTO;
 import com.example.EcommerceProject.services.ICategoryService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,9 @@ public class CategoryController {
 
 
     @GetMapping
-    public List<CategoryDTO> getAllCategories() throws java.io.IOException {
-        return this.categoryService.getAllCategories();
+    public ResponseEntity<List<CategoryDTO>> getAllCategories() throws java.io.IOException {
+        List<CategoryDTO> response = this.categoryService.getAllCategories();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(("/{categoryId}/products"))
