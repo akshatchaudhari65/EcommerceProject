@@ -7,31 +7,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-
+import com.example.EcommerceProject.mappers.GetAllCategoriesMapper;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 @Component("fakeStoreCategoryRestTemplateGateway")
-public class FakestoreCategoryRestTemplateGateway implements ICategoryGateway{
+public class FakestoreCategoryRestTemplateGateway implements ICategoryGateway {
     private final RestTemplate restTemplate;
 
     public FakestoreCategoryRestTemplateGateway(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-
     @Override
     public List<CategoryDTO> getAllCategories() throws IOException {
         String url = "https://api.escuelajs.co/api/v1/categories";
-        ResponseEntity<FakestoreCategoryResponseDTO[]> response = restTemplate.getForEntity(url, FakestoreCategoryResponseDTO[].class);
-        if(response.getBody() == null){
+        ResponseEntity<FakestoreCategoryResponseDTO[]> response = restTemplate.getForEntity(url,
+                FakestoreCategoryResponseDTO[].class);
+        if (response.getBody() == null) {
             throw new IOException("Failed to fetch categories");
         }
-        return Arrays.stream(response.getBody())
-                .map(fakeCategory -> new CategoryDTO(fakeCategory.getName()))
-                .toList();
+        return GetAllCategoriesMapper.toCategoryDTOList(response.getBody());
     }
 
     @Override
