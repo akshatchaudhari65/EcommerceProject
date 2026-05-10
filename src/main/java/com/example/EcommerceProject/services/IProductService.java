@@ -4,4 +4,5 @@ import com.example.EcommerceProject.dto.ProductDTO;
 
 public interface IProductService {
     ProductDTO getProductById(Long productId) throws Exception;
+    ProductDTO createProduct(ProductDTO dto);
 }

@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Configuration
-public class RetrofitConfig {
+public class  RetrofitConfig {
 
     @Value("${FAKESTORE_BASE_URL}")
     private String baseUrl;
