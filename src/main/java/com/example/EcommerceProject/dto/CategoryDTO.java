@@ -9,5 +9,6 @@ import lombok.*;
 @Builder
 // these are all lombok annotations, they are used to generate boilerplate code such as getters, setters, constructors, and builders.
 public class CategoryDTO {
+    private Long id;
     private String name;
 }
