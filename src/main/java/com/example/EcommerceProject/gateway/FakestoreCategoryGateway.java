@@ -26,7 +26,10 @@ public class FakestoreCategoryGateway implements ICategoryGateway {
             throw new IOException("Failed to fetch categories");
         }
         return response.stream()
-                .map(fakeCategory -> new CategoryDTO(fakeCategory.getName()))
+                .map(fakeCategory -> CategoryDTO.builder()
+                        .id(fakeCategory.getId())
+                        .name(fakeCategory.getName())
+                        .build())
                 .toList();
     }
 

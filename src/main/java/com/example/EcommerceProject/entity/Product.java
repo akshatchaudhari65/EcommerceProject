@@ -2,6 +2,7 @@ package com.example.EcommerceProject.entity;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -24,7 +25,7 @@ public class Product extends BaseEntity{
     private String brand;
     private boolean popular;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
 }

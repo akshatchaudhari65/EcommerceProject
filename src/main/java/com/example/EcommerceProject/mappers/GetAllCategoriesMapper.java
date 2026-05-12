@@ -11,7 +11,10 @@ public class GetAllCategoriesMapper {
     public static CategoryDTO toCategoryDTO(FakestoreCategoryResponseDTO fakeCategory) {
         if (fakeCategory == null)
             return null;
-        return new CategoryDTO(fakeCategory.getName());
+        return CategoryDTO.builder()
+                .id(fakeCategory.getId())
+                .name(fakeCategory.getName())
+                .build();
     }
 
     // Takes the List/Array of FakeStore DTOs and converts to List of your internal

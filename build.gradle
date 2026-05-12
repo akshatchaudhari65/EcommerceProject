@@ -44,3 +44,12 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Prevent OneDrive file lock issues by disabling stale output cleanup
+tasks.withType(JavaCompile).configureEach {
+	options.incremental = true
+}
+
+tasks.withType(Delete).configureEach {
+	setDelete(layout.buildDirectory)
+}
